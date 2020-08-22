@@ -1,12 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-export const HomePage = ({ tests }) => (
+const HomePage = ({ tests }) => (
   <div>
     <h2>"Hiring made simple"</h2>
     {tests.map((test) => (
       <div>{test.name}</div>
     ))}
+    <Link to="/test-list">
+      <h1>View test list</h1>
+    </Link>
   </div>
 );
 

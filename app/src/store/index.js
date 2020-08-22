@@ -1,10 +1,17 @@
-import { createStore } from "redux";
-import { defaultState } from "../server/defaultState";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import createSagaMiddleware from "redux-saga";
+import * as sagas from "./sagas.mock";
+import { reducer } from "./reducer";
 
-export const store = createStore(function reducer(
-  state = defaultState,
-  action
-) {
-  return state;
-},
-/* preloadedState, */ window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export const store = createStore(
+  reducer,
+  composeEnhancers(applyMiddleware(sagaMiddleware))
+);
+
+for (let saga in sagas) {
+  sagaMiddleware.run(sagas[saga]);
+}
