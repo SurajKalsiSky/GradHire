@@ -7,21 +7,33 @@ import { ConnectedNavigation } from "./navigation";
 import { ConnectedHomePage } from "./homepage";
 import { ConnectedSignInPage } from "./signinpage";
 import { ConnectedTestListPage } from "./testlistpage";
+import { ConnectedTestDetailsPage } from "./testdetailspage";
 
 export const Main = () => (
   <BrowserRouter history={history}>
     <Provider store={store}>
       <div>
         <ConnectedNavigation />
-        <Switch>
-          <Route exact path="/sign-in" render={() => <ConnectedSignInPage />} />
-          <Route
-            exact
-            path="/test-list"
-            render={() => <ConnectedTestListPage />}
-          />
-          <Route path="/" render={() => <ConnectedHomePage />} />
-        </Switch>
+        <div class="main">
+          <Switch>
+            <Route
+              exact
+              path="/sign-in"
+              render={() => <ConnectedSignInPage />}
+            />
+            <Route
+              exact
+              path="/test-list"
+              render={() => <ConnectedTestListPage />}
+            />
+            <Route
+              exact
+              path="/test/:id"
+              render={({ match }) => <ConnectedTestDetailsPage match={match} />}
+            />
+            <Route path="/" render={() => <ConnectedHomePage />} />
+          </Switch>
+        </div>
       </div>
     </Provider>
   </BrowserRouter>

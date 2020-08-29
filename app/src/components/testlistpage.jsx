@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { requestTestCreation } from "../store/mutations";
+import { Link } from "react-router-dom";
 
 const TestListPage = ({ tests, userId, createNewTest }) => (
   <div>
     <h2>Tests</h2>
     {tests.map((test) => (
-      <div key={test.id}>{test.name}</div>
+      <Link to={`/test/${test.id}`} key={test.id}>
+        <div>{test.name}</div>
+      </Link>
     ))}
     <button onClick={() => createNewTest(userId)}>Add new test</button>
   </div>

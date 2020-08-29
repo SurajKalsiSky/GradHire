@@ -51,25 +51,24 @@ export const reducer = combineReducers({
       //         ? { ...task, isComplete: action.isComplete }
       //         : task;
       //     });
-      //   case mutations.SET_TASK_GROUP:
-      //     return tasks.map((task) => {
-      //       return task.id === action.taskID
-      //         ? { ...task, group: action.groupID }
-      //         : task;
-      //     });
-      //   case mutations.SET_TASK_NAME:
-      //     return tasks.map((task) => {
-      //       return task.id === action.taskID
-      //         ? { ...task, name: action.name }
-      //         : task;
-      //     });
+      case mutations.GENERATE_TEST_UAC:
+        return tests.map((test) => {
+          return test.id === action.testId
+            ? { ...test, UAC: action.UAC }
+            : test;
+        });
+      case mutations.SET_TEST_NAME:
+        return tests.map((test) => {
+          return test.id === action.testId
+            ? { ...test, name: action.name }
+            : test;
+        });
       case mutations.CREATE_TEST:
         return [
           ...tests,
           {
-            id: action.taskID,
+            id: action.testId,
             name: "New Task",
-            testId: action.testId,
             userId: action.userId,
           },
         ];

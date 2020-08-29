@@ -1,14 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
 const Navigation = () => (
-  <div>
+  <div class="nav">
     <Link to="/">
-      <h1>GO TO HOMEPAGE</h1>
+      <img src={require("../assets/images/logo3.png")} class="center" />
     </Link>
     <Link to="/sign-in">
-      <h1>SIGN IN</h1>
+      <Button inverted size="small" floated="right">
+        Sign in
+      </Button>
     </Link>
   </div>
 );
