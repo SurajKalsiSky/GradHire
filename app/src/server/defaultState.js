@@ -1,9 +1,9 @@
 export const defaultState = {
-  session: {},
-  user: {
-    id: "1",
-    name: "Dev",
-  },
+  //   session: {},
+  //   user: {
+  //     id: "1",
+  //     name: "Dev",
+  //   },
   tests: [
     {
       id: "G1",
