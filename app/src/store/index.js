@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import createSagaMiddleware from "redux-saga";
-import * as sagas from "./sagas.mock";
+// import * as sagas from "./sagas.mock";
+import * as sagas from "./sagas";
 import { reducer } from "./reducer";
 
 const sagaMiddleware = createSagaMiddleware();

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { Provider } from "react-redux";
+import { Redirect } from "react-router";
+import { Router, Route } from "react-router-dom";
 import { store } from "../store";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { history } from "../store/history";
 import { ConnectedNavigation } from "./navigation";
 import { ConnectedHomePage } from "./homepage";
@@ -9,32 +10,33 @@ import { ConnectedSignInPage } from "./signinpage";
 import { ConnectedTestListPage } from "./testlistpage";
 import { ConnectedTestDetailsPage } from "./testdetailspage";
 
+const RouteGuard = (Component) => ({ match }) =>
+  !store.getState().session.authenticated ? (
+    <Redirect to="/sign-in" />
+  ) : (
+    <Component match={match} />
+  );
+
 export const Main = () => (
-  <BrowserRouter history={history}>
+  <Router history={history}>
     <Provider store={store}>
       <div>
         <ConnectedNavigation />
         <div class="main">
-          <Switch>
-            <Route
-              exact
-              path="/sign-in"
-              render={() => <ConnectedSignInPage />}
-            />
-            <Route
-              exact
-              path="/test-list"
-              render={() => <ConnectedTestListPage />}
-            />
-            <Route
-              exact
-              path="/test/:id"
-              render={({ match }) => <ConnectedTestDetailsPage match={match} />}
-            />
-            <Route path="/" render={() => <ConnectedHomePage />} />
-          </Switch>
+          <Route exact path="/sign-in" component={ConnectedSignInPage} />
+          <Route
+            exact
+            path="/test-list"
+            render={RouteGuard(ConnectedTestListPage)}
+          />
+          <Route
+            exact
+            path="/test/:id"
+            render={RouteGuard(ConnectedTestDetailsPage)}
+          />
+          <Route exact path="/" render={() => <ConnectedHomePage />} />
         </div>
       </div>
     </Provider>
-  </BrowserRouter>
+  </Router>
 );

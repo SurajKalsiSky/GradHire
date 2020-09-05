@@ -6,7 +6,7 @@ import { Button } from "semantic-ui-react";
 const Navigation = () => (
   <div class="nav">
     <Link to="/">
-      <img src={require("../assets/images/logo3.png")} class="center" />
+      <img src={require("../assets/images/logo4.png")} class="center" />
     </Link>
     <Link to="/sign-in">
       <Button inverted size="small" floated="right">

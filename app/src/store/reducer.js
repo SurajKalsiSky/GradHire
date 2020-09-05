@@ -11,15 +11,15 @@ import { defaultState } from "../server/defaultState";
 // };
 
 export const reducer = combineReducers({
-  session(userSession = defaultState.session, action) {
-    let { type, authenticated, session } = action;
+  session(userSession = defaultState.session || {}, action) {
+    let { type, authenticated } = action;
     switch (type) {
-      //   case mutations.SET_STATE:
-      //     return { ...userSession, id: action.state.session.id };
-      //   case mutations.REQUEST_AUTHENTICATE_USER:
-      //     return { ...userSession, authenticated: mutations.AUTHENTICATING };
-      //   case mutations.PROCESSING_AUTHENTICATE_USER:
-      //     return { ...userSession, authenticated };
+      case mutations.SET_STATE:
+        return { ...userSession, id: action.state.session.id };
+      case mutations.REQUEST_AUTHENTICATE_USER:
+        return { ...userSession, authenticated: mutations.AUTHENTICATING };
+      case mutations.PROCESSING_AUTHENTICATE_USER:
+        return { ...userSession, authenticated };
       default:
         return userSession;
     }
@@ -34,17 +34,17 @@ export const reducer = combineReducers({
     // }
     return comments;
   },
-  user: (user = defaultState.user, action) => {
-    // switch (action.type) {
-    //   case mutations.SET_STATE:
-    //     return action.state.users;
-    // }
+  user: (user = {}, action) => {
+    switch (action.type) {
+      case mutations.SET_STATE:
+        return action.state.user;
+    }
     return user;
   },
-  tests(tests = defaultState.tests, action) {
+  tests(tests = [], action) {
     switch (action.type) {
-      //   case mutations.SET_STATE:
-      //     return action.state.tasks;
+      case mutations.SET_STATE:
+        return action.state.tests;
       //   case mutations.SET_TASK_COMPLETE:
       //     return tasks.map((task) => {
       //       return task.id === action.taskID
