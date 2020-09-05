@@ -19,7 +19,7 @@ function mapStateToProps(state) {
   return { tests: state.tests, userId: state.user.id };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   return {
     createNewTest(userId) {
       console.log("Creating new test with id", userId);

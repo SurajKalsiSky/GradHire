@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
+import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
 const SignInPage = ({ authenticated, authenticateUser }) => (
   <div>
-    <h2>"Please sign in :)"</h2>
+    <h2>Please sign in</h2>
     <form onSubmit={authenticateUser}>
       <input type="text" placeholder="username" name="username" />
       <input type="text" placeholder="password" name="password" />
@@ -13,6 +15,10 @@ const SignInPage = ({ authenticated, authenticateUser }) => (
       ) : null}
       <button type="submit">Log in</button>
     </form>
+    <h3>No sign in?</h3>
+    <Link to="/sign-up">
+      <Button size="small">Sign up</Button>
+    </Link>
   </div>
 );
 

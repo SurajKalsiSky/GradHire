@@ -5,7 +5,7 @@ export const defaultState = {
     {
       id: "1",
       name: "Dev",
-      passwordHash: md5("testpassword"),
+      passwordHash: md5("test"),
     },
   ],
   tests: [
@@ -23,23 +23,6 @@ export const defaultState = {
       id: "G1",
       name: "To Do3",
       owner: "2",
-    },
-  ],
-  tasks: [
-    {
-      id: "T1",
-      name: "Do tests",
-      group: "G1",
-      owner: "1",
-      isComplete: false,
-    },
-  ],
-  comments: [
-    {
-      id: "C1",
-      owner: "U1",
-      task: "T1",
-      content: "Great Work!",
     },
   ],
 };

@@ -69,3 +69,28 @@ export function* userAuthenticationSaga() {
     }
   }
 }
+
+export function* userAccountCreationSaga() {
+  while (true) {
+    const { username, password } = yield take(
+      mutations.REQUEST_USER_ACCOUNT_CREATION
+    );
+    try {
+      const { data } = yield axios.post(url + `/user/create`, {
+        username,
+        password,
+      });
+      console.log(data);
+
+      yield put(
+        mutations.setState({ ...data.state, session: { id: data.userId } })
+      );
+      yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
+
+      history.push("/test-list");
+    } catch (e) {
+      console.error("Error", e);
+      yield put(mutations.processAuthenticateUser(mutations.USERNAME_RESERVED));
+    }
+  }
+}

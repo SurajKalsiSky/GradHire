@@ -7,7 +7,7 @@ const authenticationTokens = [];
 async function assembleUserState(user) {
   let db = await connectDB();
 
-  let tests = await db.collection("tests").find({ owner: user.id }).toArray();
+  let tests = await db.collection("tests").find({ userId: user.id }).toArray();
 
   return {
     tests,
@@ -29,9 +29,9 @@ export const authenticationRoute = (app) => {
     }
 
     let hash = md5(password);
-    let passworkCorrect = hash === user.passwordHash;
+    let passwordCorrect = hash === user.passwordHash;
 
-    if (!passworkCorrect) {
+    if (!passwordCorrect) {
       return res.status(500).send("Incorrect password!");
     }
 
@@ -45,5 +45,31 @@ export const authenticationRoute = (app) => {
     let state = await assembleUserState(user);
 
     res.send({ token, state });
+  });
+
+  app.post("/user/create", async (req, res) => {
+    let { username, password } = req.body;
+    console.log(username, password);
+    let db = await connectDB();
+    let collection = db.collection(`user`);
+    let user = await collection.findOne({ name: username });
+    if (user) {
+      res
+        .status(500)
+        .send({ message: "A user with that account name already exists." });
+      return;
+    }
+
+    let userId = uuid();
+
+    await collection.insertOne({
+      name: username,
+      id: userId,
+      passwordHash: md5(password),
+    });
+
+    let state = await assembleUserState({ id: userId, name: username });
+
+    res.status(200).send({ userId, state });
   });
 };

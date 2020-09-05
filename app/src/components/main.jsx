@@ -7,14 +7,15 @@ import { history } from "../store/history";
 import { ConnectedNavigation } from "./navigation";
 import { ConnectedHomePage } from "./homepage";
 import { ConnectedSignInPage } from "./signinpage";
+import { ConnectedSignupPage } from "./signuppage";
 import { ConnectedTestListPage } from "./testlistpage";
 import { ConnectedTestDetailsPage } from "./testdetailspage";
 
 const RouteGuard = (Component) => ({ match }) =>
-  !store.getState().session.authenticated ? (
-    <Redirect to="/sign-in" />
-  ) : (
+  store.getState().session.authenticated === "AUTHENTICATED" ? (
     <Component match={match} />
+  ) : (
+    <Redirect to="/sign-in" />
   );
 
 export const Main = () => (
@@ -24,6 +25,7 @@ export const Main = () => (
         <ConnectedNavigation />
         <div class="main">
           <Route exact path="/sign-in" component={ConnectedSignInPage} />
+          <Route exact path="/sign-up" component={ConnectedSignupPage} />
           <Route
             exact
             path="/test-list"
