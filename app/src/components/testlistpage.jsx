@@ -22,7 +22,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createNewTest(userId) {
-      console.log("Creating new test with id", userId);
       dispatch(requestTestCreation(userId));
     },
   };

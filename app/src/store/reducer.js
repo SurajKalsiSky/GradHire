@@ -39,14 +39,7 @@ export const reducer = combineReducers({
             : test;
         });
       case mutations.CREATE_TEST:
-        return [
-          ...tests,
-          {
-            id: action.testId,
-            name: "New Task",
-            userId: action.userId,
-          },
-        ];
+        return [...tests, { ...action.testInfo }];
     }
     return tests;
   },

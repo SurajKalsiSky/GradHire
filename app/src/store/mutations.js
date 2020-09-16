@@ -12,15 +12,14 @@ export const SET_STATE = "SET_STATE";
 export const USERNAME_RESERVED = `USERNAME_RESERVED`;
 export const REQUEST_USER_ACCOUNT_CREATION = `REQUEST_USER_ACCOUNT_CREATION`;
 
-export const requestTestCreation = (userId) => ({
+export const requestTestCreation = (testDetails) => ({
   type: REQUEST_TEST_CREATION,
-  userId,
+  ...testDetails,
 });
 
-export const createTest = (testId, userId) => ({
+export const createTest = (testInfo) => ({
   type: CREATE_TEST,
-  testId,
-  userId,
+  testInfo,
 });
 
 export const requestGenerateUAC = (testId) => ({
@@ -60,8 +59,7 @@ export const setState = (state = {}) => ({
   state,
 });
 
-export const requestCreateUserAccount = (username, password) => ({
+export const requestCreateUserAccount = (signUpInfo) => ({
   type: REQUEST_USER_ACCOUNT_CREATION,
-  username,
-  password,
+  ...signUpInfo,
 });

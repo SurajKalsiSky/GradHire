@@ -9,16 +9,18 @@ const url = "http://localhost:7777";
 
 export function* testCreationSaga() {
   while (true) {
-    const { userId } = yield take(mutations.REQUEST_TEST_CREATION);
-    console.log("function*testCreationSaga -> userId", userId);
-    const testId = uuid();
-    yield put(mutations.createTest(testId, userId));
+    const testInfo = yield take(mutations.REQUEST_TEST_CREATION);
+    delete testInfo.type;
+    console.log("function*testCreationSaga -> testInfo", testInfo);
+    const test = {
+      testInfo,
+      userId: testInfo.userId,
+      id: uuid(),
+      name: testInfo.ownerState.name,
+    };
+    yield put(mutations.createTest(test));
     const { res } = yield axios.post(url + "/test/new", {
-      test: {
-        id: testId,
-        userId,
-        name: "New test from saga",
-      },
+      test,
     });
     console.info("testCreationSaga response:", res);
   }
@@ -62,7 +64,7 @@ export function* userAuthenticationSaga() {
       console.log("Authenticated!", data);
       yield put(mutations.setState(data.state));
       yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
-      history.push("/test-list");
+      history.push("/home");
     } catch (e) {
       console.log("Can't authenticate", e);
       yield put(mutations.processAuthenticateUser(mutations.NOT_AUTHENTICATED));
@@ -72,14 +74,11 @@ export function* userAuthenticationSaga() {
 
 export function* userAccountCreationSaga() {
   while (true) {
-    const { username, password } = yield take(
-      mutations.REQUEST_USER_ACCOUNT_CREATION
-    );
+    const signUpInfo = yield take(mutations.REQUEST_USER_ACCOUNT_CREATION);
+    delete signUpInfo.type;
+    console.log("function*userAccountCreationSaga -> signUpInfo", signUpInfo);
     try {
-      const { data } = yield axios.post(url + `/user/create`, {
-        username,
-        password,
-      });
+      const { data } = yield axios.post(url + `/user/create`, signUpInfo);
       console.log(data);
 
       yield put(
@@ -87,7 +86,7 @@ export function* userAccountCreationSaga() {
       );
       yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
 
-      history.push("/test-list");
+      history.push("/home");
     } catch (e) {
       console.error("Error", e);
       yield put(mutations.processAuthenticateUser(mutations.USERNAME_RESERVED));

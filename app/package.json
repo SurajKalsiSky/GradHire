@@ -25,6 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "mongo-start": "brew services start mongodb-community@4.4",
+    "mongo-stop": "brew services stop mongodb-community@4.4",
     "initialise": "babel-node src/server/initialise-db",
     "server": "babel-node src/server/server",
     "server-test": "babel-node src/server/server.spec"

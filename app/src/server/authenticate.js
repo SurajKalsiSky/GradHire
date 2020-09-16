@@ -48,7 +48,15 @@ export const authenticationRoute = (app) => {
   });
 
   app.post("/user/create", async (req, res) => {
-    let { username, password } = req.body;
+    let {
+      username,
+      password,
+      firstname,
+      lastname,
+      company,
+      companylogo,
+      companycolour,
+    } = req.body;
     console.log(username, password);
     let db = await connectDB();
     let collection = db.collection(`user`);
@@ -66,6 +74,11 @@ export const authenticationRoute = (app) => {
       name: username,
       id: userId,
       passwordHash: md5(password),
+      firstname,
+      lastname,
+      company,
+      companylogo,
+      companycolour,
     });
 
     let state = await assembleUserState({ id: userId, name: username });

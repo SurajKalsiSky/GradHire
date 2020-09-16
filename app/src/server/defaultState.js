@@ -6,6 +6,11 @@ export const defaultState = {
       id: "1",
       name: "Dev",
       passwordHash: md5("test"),
+      firstname: "d",
+      lastname: "l",
+      company: "s",
+      companylogo: "f",
+      companycolour: "g",
     },
   ],
   tests: [

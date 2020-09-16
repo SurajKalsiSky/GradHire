@@ -8,8 +8,11 @@ import { ConnectedNavigation } from "./navigation";
 import { ConnectedHomePage } from "./homepage";
 import { ConnectedSignInPage } from "./signinpage";
 import { ConnectedSignupPage } from "./signuppage";
+import { ConnectedClientHomePage } from "./clienthomepage";
+import { ConnectedCreateTestPage } from "./createtestpage";
 import { ConnectedTestListPage } from "./testlistpage";
 import { ConnectedTestDetailsPage } from "./testdetailspage";
+import { ConnectedViewCandidatesPage } from "./viewcandidatespage";
 
 const RouteGuard = (Component) => ({ match }) =>
   store.getState().session.authenticated === "AUTHENTICATED" ? (
@@ -28,6 +31,16 @@ export const Main = () => (
           <Route exact path="/sign-up" component={ConnectedSignupPage} />
           <Route
             exact
+            path="/home"
+            render={RouteGuard(ConnectedClientHomePage)}
+          />
+          <Route
+            exact
+            path="/create-test"
+            render={RouteGuard(ConnectedCreateTestPage)}
+          />
+          <Route
+            exact
             path="/test-list"
             render={RouteGuard(ConnectedTestListPage)}
           />
@@ -35,6 +48,11 @@ export const Main = () => (
             exact
             path="/test/:id"
             render={RouteGuard(ConnectedTestDetailsPage)}
+          />
+          <Route
+            exact
+            path="/view-candidates"
+            render={RouteGuard(ConnectedViewCandidatesPage)}
           />
           <Route exact path="/" render={() => <ConnectedHomePage />} />
         </div>

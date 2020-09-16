@@ -9,7 +9,7 @@ const SignInPage = ({ authenticated, authenticateUser }) => (
     <h2>Please sign in</h2>
     <form onSubmit={authenticateUser}>
       <input type="text" placeholder="username" name="username" />
-      <input type="text" placeholder="password" name="password" />
+      <input type="password" placeholder="password" name="password" />
       {authenticated === mutations.NOT_AUTHENTICATED ? (
         <p>Login incorrect!</p>
       ) : null}
