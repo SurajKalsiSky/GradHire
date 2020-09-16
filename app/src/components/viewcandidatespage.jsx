@@ -4,31 +4,37 @@ import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 
-const ViewCandidatesPage = ({ authenticated, authenticateUser }) => (
+const ViewCandidatesPage = ({ tests }) => (
   <div>
     <Link to="/home">
       <Button size="small">Back</Button>
     </Link>
 
-    <h2>Please sign in</h2>
-    <form onSubmit={authenticateUser}>
-      <input type="text" placeholder="username" name="username" />
-      <input type="text" placeholder="password" name="password" />
-      {authenticated === mutations.NOT_AUTHENTICATED ? (
-        <p>Login incorrect!</p>
-      ) : null}
-      <button type="submit">Log in</button>
-    </form>
-    <h3>No sign in?</h3>
-    <Link to="/sign-up">
-      <Button size="small">Sign up</Button>
-    </Link>
+    <ul>
+      {tests.map(
+        (test) =>
+          test.candidates &&
+          test.candidates.map((candidate) => (
+            <div>
+              <li>
+                Name: {candidate.firstname} {candidate.lastname}
+              </li>
+              <li>
+                Score: {candidate.score}/{test.testInfo.testState.length}
+              </li>
+              <li>Test: {test.name}</li>
+              <li>Email: {candidate.name}</li>
+            </div>
+          ))
+      )}
+    </ul>
   </div>
 );
 
-const mapStateToProps = ({ session }) => {
-  return { authenticated: session.authenticated };
-};
+function mapStateToProps({ tests }) {
+  console.log("mapStateToProps -> tests", tests);
+  return { tests };
+}
 function mapDispatchToProps(dispatch) {
   return {
     authenticateUser(e) {

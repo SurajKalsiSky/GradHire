@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 
-const SignupPage = ({ requestCreateUserAccount, authenticated }) => {
+const CandSignUp = ({ requestCreateUserAccount, authenticated }) => {
   return (
     <div>
       <Link to="/">
@@ -41,22 +41,6 @@ const SignupPage = ({ requestCreateUserAccount, authenticated }) => {
             className="form-control mt-2"
           />
         </label>
-        <label>
-          <span>Company</span>
-          <input type="text" name="company" className="form-control mt-2" />
-        </label>
-        <label>
-          <span>Company Logo</span>
-          <input type="text" name="companylogo" className="form-control mt-2" />
-        </label>
-        <label>
-          <span>Company Colour</span>
-          <input
-            type="text"
-            name="companycolour"
-            className="form-control mt-2"
-          />
-        </label>
 
         {authenticated == mutations.USERNAME_RESERVED ? (
           <p>Username taken</p>
@@ -82,15 +66,13 @@ const mapDispatchToProps = (dispatch) => ({
       username: e.target[`username`].value,
       password: e.target[`password`].value,
       confirmpassword: e.target[`confirmpassword`].value,
-      company: e.target[`company`].value,
-      companylogo: e.target[`companylogo`].value,
-      companycolour: e.target[`companycolour`].value,
+      candidate: true,
     };
     dispatch(mutations.requestCreateUserAccount(signUpInfo));
   },
 });
 
-export const ConnectedSignupPage = connect(
+export const ConnectedCandSignUp = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignupPage);
+)(CandSignUp);

@@ -11,6 +11,7 @@ export const NOT_AUTHENTICATED = "NOT_AUTHENTICATED";
 export const SET_STATE = "SET_STATE";
 export const USERNAME_RESERVED = `USERNAME_RESERVED`;
 export const REQUEST_USER_ACCOUNT_CREATION = `REQUEST_USER_ACCOUNT_CREATION`;
+export const SET_TEST_STATE = `SET_TEST_STATE`;
 
 export const requestTestCreation = (testDetails) => ({
   type: REQUEST_TEST_CREATION,
@@ -59,7 +60,27 @@ export const setState = (state = {}) => ({
   state,
 });
 
+export const setTestState = (state = {}) => ({
+  type: SET_TEST_STATE,
+  state,
+});
+
 export const requestCreateUserAccount = (signUpInfo) => ({
   type: REQUEST_USER_ACCOUNT_CREATION,
   ...signUpInfo,
+});
+
+export const getTest = (id) => ({
+  type: "GET_TEST",
+  id,
+});
+
+export const submitAnswer = (answerDetails) => ({
+  type: "submitAnswer",
+  ...answerDetails,
+});
+
+export const submitAnswers = (answerDetails) => ({
+  type: "submitAnswers",
+  ...answerDetails,
 });

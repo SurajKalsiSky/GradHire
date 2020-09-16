@@ -25,7 +25,7 @@ export const addNewTest = async (test) => {
 };
 
 export const updateTest = async (test) => {
-  let { id, name, UAC } = test;
+  let { id, name, UAC, candidates } = test;
   let db = await connectDB();
   let collection = db.collection("tests");
 
@@ -35,6 +35,10 @@ export const updateTest = async (test) => {
 
   if (UAC) {
     await collection.updateOne({ id }, { $set: { UAC } });
+  }
+
+  if (candidates) {
+    await collection.updateOne({ id }, { $set: { candidates } });
   }
 };
 
@@ -48,4 +52,23 @@ app.post("/test/update", async (req, res) => {
   let test = req.body.test;
   await updateTest(test);
   res.status(200).send();
+});
+
+app.post("/gettest", async (req, res) => {
+  let id = req.body.id;
+  console.log("id to find:", id);
+  let db = await connectDB();
+  let collection = db.collection("tests");
+
+  let test = await collection.findOne({ id });
+
+  if (!test) {
+    return res.status(500).send("Test not found!");
+  }
+
+  let state = {
+    test,
+  };
+
+  res.send({ state });
 });

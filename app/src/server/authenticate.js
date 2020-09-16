@@ -56,8 +56,8 @@ export const authenticationRoute = (app) => {
       company,
       companylogo,
       companycolour,
+      candidate,
     } = req.body;
-    console.log(username, password);
     let db = await connectDB();
     let collection = db.collection(`user`);
     let user = await collection.findOne({ name: username });
@@ -79,9 +79,14 @@ export const authenticationRoute = (app) => {
       company,
       companylogo,
       companycolour,
+      candidate,
     });
 
-    let state = await assembleUserState({ id: userId, name: username });
+    let state = await assembleUserState({
+      id: userId,
+      name: username,
+      candidate,
+    });
 
     res.status(200).send({ userId, state });
   });

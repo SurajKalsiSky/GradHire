@@ -13,12 +13,24 @@ import { ConnectedCreateTestPage } from "./createtestpage";
 import { ConnectedTestListPage } from "./testlistpage";
 import { ConnectedTestDetailsPage } from "./testdetailspage";
 import { ConnectedViewCandidatesPage } from "./viewcandidatespage";
+import { ConnectedAccessCodePage } from "./accesscodepage";
+import { ConnectedCandSignIn } from "./candsigninpage";
+import { ConnectedCandSignUp } from "./candsignuppage";
+import { ConnectedQuestionPage } from "./questionpage";
+import { ConnectedFinished } from "./finishedpage";
 
 const RouteGuard = (Component) => ({ match }) =>
   store.getState().session.authenticated === "AUTHENTICATED" ? (
     <Component match={match} />
   ) : (
     <Redirect to="/sign-in" />
+  );
+
+const CandidateRouteGuard = (Component) => ({ match }) =>
+  store.getState().session.authenticated === "AUTHENTICATED" ? (
+    <Component match={match} />
+  ) : (
+    <Redirect to="/candidate/sign-in" />
   );
 
 export const Main = () => (
@@ -55,6 +67,31 @@ export const Main = () => (
             render={RouteGuard(ConnectedViewCandidatesPage)}
           />
           <Route exact path="/" render={() => <ConnectedHomePage />} />
+          <Route
+            exact
+            path="/candidate/test/:id"
+            component={ConnectedAccessCodePage}
+          />
+          <Route
+            exact
+            path="/candidate/sign-in"
+            component={ConnectedCandSignIn}
+          />
+          <Route
+            exact
+            path="/candidate/sign-up"
+            component={ConnectedCandSignUp}
+          />
+          <Route
+            exact
+            path="/question/:id"
+            render={CandidateRouteGuard(ConnectedQuestionPage)}
+          />
+          <Route
+            exact
+            path="/finished"
+            render={CandidateRouteGuard(ConnectedFinished)}
+          />
         </div>
       </div>
     </Provider>
