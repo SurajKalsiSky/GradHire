@@ -1,10 +1,15 @@
 import React from "react";
 import * as mutations from "../store/mutations";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
 const SignupPage = ({ requestCreateUserAccount, authenticated }) => {
   return (
     <div>
+      <Link to="/">
+        <Button size="small">Back</Button>
+      </Link>
       <h2>Complete the following form to create a new account.</h2>
 
       <form onSubmit={requestCreateUserAccount}>

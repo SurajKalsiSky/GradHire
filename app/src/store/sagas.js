@@ -23,6 +23,7 @@ export function* testCreationSaga() {
       test,
     });
     console.info("testCreationSaga response:", res);
+    history.push("/test-list");
   }
 }
 
@@ -45,6 +46,12 @@ export function* generateUACSaga() {
     const { testId } = yield take(mutations.REQUEST_GENERATE_TEST_UAC);
     const UAC = uuid().substring(0, 6);
     yield put(mutations.generateUAC(testId, UAC));
+    axios.post(url + "/test/update", {
+      test: {
+        id: testId,
+        UAC,
+      },
+    });
   }
 }
 

@@ -6,6 +6,9 @@ import { Button } from "semantic-ui-react";
 
 const SignInPage = ({ authenticated, authenticateUser }) => (
   <div>
+    <Link to="/">
+      <Button size="small">Back</Button>
+    </Link>
     <h2>Please sign in</h2>
     <form onSubmit={authenticateUser}>
       <input type="text" placeholder="username" name="username" />
