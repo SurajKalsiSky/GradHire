@@ -2,15 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
+import { Title } from "./title";
 
 const SignInPage = ({ authenticated, authenticateUser }) => (
   <div>
+    <Title title={"Sign in"} />
     <Link to="/">
       <Button size="small">Back</Button>
     </Link>
-    <h2>Please sign in</h2>
-    <form onSubmit={authenticateUser}>
+    <Form onSubmit={authenticateUser}>
+      <Form.Field>
+        <label>Username</label>
+        <input placeholder="Username" />
+      </Form.Field>
+      <Form.Field>
+        <label>Last Name</label>
+        <input placeholder="Last Name" type="password" />
+      </Form.Field>
+      <Button type="submit">Log in</Button>
+    </Form>
+
+    {/* <form onSubmit={authenticateUser}>
       <input type="text" placeholder="username" name="username" />
       <input type="password" placeholder="password" name="password" />
       {authenticated === mutations.NOT_AUTHENTICATED ? (
@@ -21,7 +34,7 @@ const SignInPage = ({ authenticated, authenticateUser }) => (
     <h3>No sign in?</h3>
     <Link to="/sign-up">
       <Button size="small">Sign up</Button>
-    </Link>
+    </Link> */}
   </div>
 );
 

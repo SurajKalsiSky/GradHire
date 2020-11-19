@@ -11,8 +11,6 @@ export const reducer = combineReducers({
         return { ...userSession, authenticated: mutations.AUTHENTICATING };
       case mutations.PROCESSING_AUTHENTICATE_USER:
         return { ...userSession, authenticated, session };
-      // case "checkUAC":
-      //   return { ...userSession, correctUAC:  };
       default:
         return userSession;
     }
