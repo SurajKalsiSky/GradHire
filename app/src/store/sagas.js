@@ -1,4 +1,4 @@
-import { take, put, select } from "redux-saga/effects";
+import { take, put } from "redux-saga/effects";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ const url = "http://localhost:7777";
 export function* testCreationSaga() {
   while (true) {
     const testInfo = yield take(mutations.REQUEST_TEST_CREATION);
+    console.log("function*testCreationSaga -> testInfo", testInfo);
     delete testInfo.type;
     const test = {
       testInfo,

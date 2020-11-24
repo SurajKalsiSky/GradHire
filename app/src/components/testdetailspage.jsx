@@ -2,25 +2,31 @@ import React from "react";
 import { connect } from "react-redux";
 import { requestGenerateUAC, setTestName } from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Input } from "semantic-ui-react";
+import { Title } from "./title";
 
 const TestDetailsPage = ({ id, test, requestGenerateUAC, setTestName }) => (
   <div>
+    <Title title={test.name} />
     <Link to="/test-list">
       <Button size="small">Back</Button>
     </Link>
-    <div>
-      Change name:
-      <input onChange={setTestName} value={test.name} />
+    <div className="extraPadding">
+      <b>Change name:</b>
+      <Input onChange={setTestName} value={test.name} />
     </div>
-    Test name: {test.name}
     <div>
-      <p>Test URL: {`http://localhost:3000/candidate/test/${test.id}`}</p>
+      <p>
+        <b>Test URL: </b>
+        {`http://localhost:3000/candidate/test/${test.id}`}
+      </p>
       Click button to generate test access code:
-      <button onClick={() => requestGenerateUAC(id)}>
+      <Button compact onClick={() => requestGenerateUAC(id)}>
         {test.UAC ? "Generate new code" : "Generate code"}
-      </button>
-      <p>UAC: {test.UAC}</p>
+      </Button>
+      <p>
+        <b>UAC:</b> {test.UAC}
+      </p>
     </div>
   </div>
 );

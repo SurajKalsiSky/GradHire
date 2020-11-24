@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Input } from "semantic-ui-react";
+import { Title } from "./title";
 
 const QuestionPage = ({
   testDetails,
@@ -18,12 +19,12 @@ const QuestionPage = ({
   if (testDetails) {
     return (
       <div>
-        <h2>Question {id + 1}</h2>
-        <h3>{testDetails.question}</h3>
+        <Title title={`Question ${id + 1}`} />
+        <h3>{testDetails.question}?</h3>
         <h3>Answer 1: {testDetails.answer1}</h3>
         <h3>Answer 2: {testDetails.answer2}</h3>
 
-        <input
+        <Input
           type="number"
           name={"answer"}
           id={1}
@@ -33,14 +34,14 @@ const QuestionPage = ({
           max="2"
         />
 
-        <button
+        <Button
           type="submit"
           onClick={() =>
             sumbitAnswer(testState, testDetails, nextTest, nextId, user, test)
           }
         >
           Next
-        </button>
+        </Button>
         {/* {nextTest ? (
           <Link to={`/question/${id + 1}`}>
             <Button size="small">Next</Button>

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Message, Input } from "semantic-ui-react";
 import { Title } from "./title";
 
 const SignInPage = ({ authenticated, authenticateUser }) => (
@@ -11,30 +11,29 @@ const SignInPage = ({ authenticated, authenticateUser }) => (
     <Link to="/">
       <Button size="small">Back</Button>
     </Link>
-    <Form onSubmit={authenticateUser}>
-      <Form.Field>
+    <Form error onSubmit={authenticateUser}>
+      <Form.Field required>
         <label>Username</label>
-        <input placeholder="Username" />
+        <Input placeholder="Username" name="username" />
       </Form.Field>
-      <Form.Field>
-        <label>Last Name</label>
-        <input placeholder="Last Name" type="password" />
+      <Form.Field required>
+        <label>Password</label>
+        <Input placeholder="*******" type="password" name="password" />
       </Form.Field>
       <Button type="submit">Log in</Button>
+      {authenticated === mutations.NOT_AUTHENTICATED ? (
+        <Message
+          error
+          header="Unable to sign in"
+          content="The username and/or password is incorrect"
+        />
+      ) : null}
     </Form>
 
-    {/* <form onSubmit={authenticateUser}>
-      <input type="text" placeholder="username" name="username" />
-      <input type="password" placeholder="password" name="password" />
-      {authenticated === mutations.NOT_AUTHENTICATED ? (
-        <p>Login incorrect!</p>
-      ) : null}
-      <button type="submit">Log in</button>
-    </form>
     <h3>No sign in?</h3>
     <Link to="/sign-up">
       <Button size="small">Sign up</Button>
-    </Link> */}
+    </Link>
   </div>
 );
 

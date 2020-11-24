@@ -2,23 +2,34 @@ import React from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Input, Form, Message } from "semantic-ui-react";
+import { Title } from "./title";
 
 const CandSignIn = ({ authenticated, authenticateUser }) => (
   <div>
+    <Title title={"Sign in"} />
     <Link to="/">
       <Button size="small">Back</Button>
     </Link>
-    <h2>Please sign in candidate</h2>
-    <form onSubmit={authenticateUser}>
-      <input type="text" placeholder="username" name="username" />
-      <input type="password" placeholder="password" name="password" />
+    <Form error onSubmit={authenticateUser}>
+      <Form.Field required>
+        <label>Username</label>
+        <Input placeholder="Username" name="username" />
+      </Form.Field>
+      <Form.Field required>
+        <label>Password</label>
+        <Input placeholder="*******" type="password" name="password" />
+      </Form.Field>
+      <Button type="submit">Log in</Button>
       {authenticated === mutations.NOT_AUTHENTICATED ? (
-        <p>Login incorrect!</p>
+        <Message
+          error
+          header="Unable to sign in"
+          content="The username and/or password is incorrect"
+        />
       ) : null}
-      <button type="submit">Log in</button>
-    </form>
-    <h3>No sign in?</h3>
+    </Form>
+    <h3>Don't have a GradHire account? Sign up here</h3>
     <Link to="/candidate/sign-up">
       <Button size="small">Sign up</Button>
     </Link>

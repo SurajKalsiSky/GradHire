@@ -2,22 +2,25 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Input } from "semantic-ui-react";
+import { Title } from "./title";
 
 const AccessCodePage = ({ id, getTest, correctUAC, validTest, test }) => {
   useEffect(() => getTest(id), []);
   return (
     <div>
+      <Title title={test.name} />
       {validTest ? (
         <div>
-          <h1>{test.testInfo?.ownerState.name}</h1>
-          <h2>Please enter the unique access code:</h2>
+          <h1>Please enter the unique access code:</h1>
           <form>
-            <input type="text" placeholder="xxxxx" name="UAC" />
+            <Input type="text" placeholder="xxxxx" name="UAC" />
             {correctUAC ? <p>Login incorrect!</p> : null}
             {/* <button type="submit">Enter</button> */}
             <Link to="/candidate/sign-in">
-              <Button size="small">Enter</Button>
+              <Button className="extraPadding" size="small">
+                Enter
+              </Button>
             </Link>
           </form>
         </div>

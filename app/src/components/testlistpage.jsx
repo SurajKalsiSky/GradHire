@@ -3,35 +3,37 @@ import { connect } from "react-redux";
 import { requestTestCreation } from "../store/mutations";
 import { Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
+import { Title } from "./title";
 
-const TestListPage = ({ tests, userId, createNewTest }) => (
+const TestListPage = ({ tests }) => (
   <div>
+    <Title title={"View tests"} />
     <Link to="/home">
       <Button size="small">Back</Button>
     </Link>
-    <h2>Tests</h2>
     {tests.map((test) => (
-      <Link to={`/test/${test.id}`} key={test.id}>
+      <div className="extraPadding">
         <div>{test.name}</div>
-      </Link>
+        <Link to={`/test/${test.id}`} key={test.id}>
+          <Button
+            className="testListPageButton"
+            size="small"
+            compact
+            color="red"
+          >
+            View
+          </Button>
+        </Link>
+      </div>
     ))}
-    <button onClick={() => createNewTest(userId)}>Add new test</button>
+    <Link to="/create-test">
+      <Button color="green">Add new test</Button>
+    </Link>
   </div>
 );
 
 function mapStateToProps(state) {
-  return { tests: state.tests, userId: state.user.id };
+  return { tests: state.tests };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    createNewTest(userId) {
-      dispatch(requestTestCreation(userId));
-    },
-  };
-}
-
-export const ConnectedTestListPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestListPage);
+export const ConnectedTestListPage = connect(mapStateToProps)(TestListPage);

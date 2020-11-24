@@ -2,51 +2,61 @@ import React from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Table, Icon } from "semantic-ui-react";
+import { Title } from "./title";
 
 const ViewCandidatesPage = ({ tests }) => (
   <div>
+    <Title title={"View candidates"} />
     <Link to="/home">
       <Button size="small">Back</Button>
     </Link>
 
-    <ul>
-      {tests.map(
-        (test) =>
-          test.candidates &&
-          test.candidates.map((candidate) => (
-            <div>
-              <li>
-                Name: {candidate.firstname} {candidate.lastname}
-              </li>
-              <li>
-                Score: {candidate.score}/{test.testInfo.testState.length}
-              </li>
-              <li>Test: {test.name}</li>
-              <li>Email: {candidate.name}</li>
-            </div>
-          ))
-      )}
-    </ul>
+    <Table color="red">
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Test</Table.HeaderCell>
+          <Table.HeaderCell>Test Score</Table.HeaderCell>
+          <Table.HeaderCell>Email</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+
+      <Table.Body>
+        {tests.map(
+          (test) =>
+            test.candidates &&
+            test.candidates.map((candidate) => (
+              <Table.Row>
+                <Table.Cell>
+                  {candidate.firstname} {candidate.lastname}
+                </Table.Cell>
+                <Table.Cell>{test.name}</Table.Cell>
+                {candidate.score >=
+                Number(test.testInfo.ownerState.passmark) ? (
+                  <Table.Cell positive>
+                    <Icon name="checkmark" />
+                    {candidate.score}/{test.testInfo.testState.length}
+                  </Table.Cell>
+                ) : (
+                  <Table.Cell negative>
+                    <Icon name="close" />
+                    {candidate.score}/{test.testInfo.testState.length}
+                  </Table.Cell>
+                )}
+                <Table.Cell>{candidate.name}</Table.Cell>
+              </Table.Row>
+            ))
+        )}
+      </Table.Body>
+    </Table>
   </div>
 );
 
 function mapStateToProps({ tests }) {
-  console.log("mapStateToProps -> tests", tests);
   return { tests };
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    authenticateUser(e) {
-      e.preventDefault();
-      let username = e.target["username"].value;
-      let password = e.target["password"].value;
-      dispatch(mutations.requestAuthenticateUser(username, password));
-    },
-  };
-}
 
-export const ConnectedViewCandidatesPage = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ViewCandidatesPage);
+export const ConnectedViewCandidatesPage = connect(mapStateToProps)(
+  ViewCandidatesPage
+);

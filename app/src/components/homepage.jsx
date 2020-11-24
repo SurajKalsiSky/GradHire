@@ -4,7 +4,15 @@ import { Link } from "react-router-dom";
 import { Button, Divider, Grid, Segment, List, Menu } from "semantic-ui-react";
 import { Title } from "./title";
 
-const HomePage = ({ tests }) => (
+const signUpButton = () => (
+  <Menu.Item>
+    <Link to="/sign-up">
+      <Button size="small">Sign up</Button>
+    </Link>
+  </Menu.Item>
+);
+
+const HomePage = () => (
   <div>
     <Title title={'"Hiring made simple"'} />
 
@@ -41,11 +49,7 @@ const HomePage = ({ tests }) => (
                 <List.Item icon="x" content="Video" />
               </List>
             </Menu.Item>
-            <Menu.Item>
-              <Link to="/sign-up">
-                <Button size="small">Sign up</Button>
-              </Link>
-            </Menu.Item>
+            {signUpButton()}
           </Menu>
         </Grid.Column>
 
@@ -64,11 +68,7 @@ const HomePage = ({ tests }) => (
                 <List.Item icon="x" content="Video" />
               </List>
             </Menu.Item>
-            <Menu.Item>
-              <Link to="/sign-up">
-                <Button size="small">Sign up</Button>
-              </Link>
-            </Menu.Item>
+            {signUpButton()}
           </Menu>
         </Grid.Column>
 
@@ -87,11 +87,7 @@ const HomePage = ({ tests }) => (
                 <List.Item icon="check" content="Video" />
               </List>
             </Menu.Item>
-            <Menu.Item>
-              <Link to="/sign-up">
-                <Button size="small">Sign up</Button>
-              </Link>
-            </Menu.Item>
+            {signUpButton()}
           </Menu>
         </Grid.Column>
       </Grid.Row>
@@ -100,7 +96,7 @@ const HomePage = ({ tests }) => (
 );
 
 function mapStateToProps(state) {
-  return { tests: state.tests };
+  return state;
 }
 
 export const ConnectedHomePage = connect(mapStateToProps)(HomePage);

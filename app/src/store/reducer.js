@@ -3,6 +3,7 @@ import * as mutations from "./mutations";
 
 export const reducer = combineReducers({
   session(userSession = {}, action) {
+    // session(userSession = { authenticated: "AUTHENTICATED" }, action) {
     let { type, authenticated, session } = action;
     switch (type) {
       case mutations.SET_STATE:

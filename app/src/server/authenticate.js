@@ -85,6 +85,7 @@ export const authenticationRoute = (app) => {
     let state = await assembleUserState({
       id: userId,
       name: username,
+      firstname,
       candidate,
     });
 

@@ -38,60 +38,62 @@ export const Main = () => (
     <Provider store={store}>
       <div>
         <ConnectedNavigation />
-        <div class="main">
-          <Route exact path="/sign-in" component={ConnectedSignInPage} />
-          <Route exact path="/sign-up" component={ConnectedSignupPage} />
-          <Route
-            exact
-            path="/home"
-            render={RouteGuard(ConnectedClientHomePage)}
-          />
-          <Route
-            exact
-            path="/create-test"
-            render={RouteGuard(ConnectedCreateTestPage)}
-          />
-          <Route
-            exact
-            path="/test-list"
-            render={RouteGuard(ConnectedTestListPage)}
-          />
-          <Route
-            exact
-            path="/test/:id"
-            render={RouteGuard(ConnectedTestDetailsPage)}
-          />
-          <Route
-            exact
-            path="/view-candidates"
-            render={RouteGuard(ConnectedViewCandidatesPage)}
-          />
-          <Route exact path="/" render={() => <ConnectedHomePage />} />
-          <Route
-            exact
-            path="/candidate/test/:id"
-            component={ConnectedAccessCodePage}
-          />
-          <Route
-            exact
-            path="/candidate/sign-in"
-            component={ConnectedCandSignIn}
-          />
-          <Route
-            exact
-            path="/candidate/sign-up"
-            component={ConnectedCandSignUp}
-          />
-          <Route
-            exact
-            path="/question/:id"
-            render={CandidateRouteGuard(ConnectedQuestionPage)}
-          />
-          <Route
-            exact
-            path="/finished"
-            render={CandidateRouteGuard(ConnectedFinished)}
-          />
+        <div class="page center">
+          <div class="main">
+            <Route exact path="/sign-in" component={ConnectedSignInPage} />
+            <Route exact path="/sign-up" component={ConnectedSignupPage} />
+            <Route
+              exact
+              path="/home"
+              render={RouteGuard(ConnectedClientHomePage)}
+            />
+            <Route
+              exact
+              path="/create-test"
+              render={RouteGuard(ConnectedCreateTestPage)}
+            />
+            <Route
+              exact
+              path="/test-list"
+              render={RouteGuard(ConnectedTestListPage)}
+            />
+            <Route
+              exact
+              path="/test/:id"
+              render={RouteGuard(ConnectedTestDetailsPage)}
+            />
+            <Route
+              exact
+              path="/view-candidates"
+              render={RouteGuard(ConnectedViewCandidatesPage)}
+            />
+            <Route exact path="/" render={() => <ConnectedHomePage />} />
+            <Route
+              exact
+              path="/candidate/test/:id"
+              component={ConnectedAccessCodePage}
+            />
+            <Route
+              exact
+              path="/candidate/sign-in"
+              component={ConnectedCandSignIn}
+            />
+            <Route
+              exact
+              path="/candidate/sign-up"
+              component={ConnectedCandSignUp}
+            />
+            <Route
+              exact
+              path="/question/:id"
+              render={CandidateRouteGuard(ConnectedQuestionPage)}
+            />
+            <Route
+              exact
+              path="/finished"
+              render={CandidateRouteGuard(ConnectedFinished)}
+            />
+          </div>
         </div>
       </div>
     </Provider>

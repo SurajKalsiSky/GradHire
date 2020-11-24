@@ -2,69 +2,69 @@ import React from "react";
 import * as mutations from "../store/mutations";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Form, Button, Message } from "semantic-ui-react";
+import { Title } from "./title";
 
 const SignupPage = ({ requestCreateUserAccount, authenticated }) => {
   return (
     <div>
+      <Title title={"Sign up"} />
       <Link to="/">
         <Button size="small">Back</Button>
       </Link>
-      <h2>Complete the following form to create a new account.</h2>
-
-      <form onSubmit={requestCreateUserAccount}>
-        <label>
-          <span>First name</span>
-          <input type="text" name="firstname" className="form-control mt-2" />
-        </label>
-        <label>
-          <span>Last name</span>
-          <input type="text" name="lastname" className="form-control mt-2" />
-        </label>
-        <label>
-          <span>User Name</span>
-          <input type="text" name="username" className="form-control" />
-        </label>
-        <label>
-          <span>Password</span>
-          <input
-            type="password"
-            name="password"
-            className="form-control mt-2"
+      <Form error onSubmit={requestCreateUserAccount}>
+        <Form.Group unstackable widths={2}>
+          <Form.Field required>
+            <label>First name</label>
+            <input placeholder="John" name="firstname" />
+          </Form.Field>
+          <Form.Field required>
+            <label>Last name</label>
+            <input placeholder="Smith" name="lastname" />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group widths={3}>
+          <Form.Field required>
+            <label>Username</label>
+            <input name="username" />
+          </Form.Field>
+          <Form.Field required>
+            <label>Password</label>
+            <input placeholder="********" type="password" name="password" />
+          </Form.Field>
+          <Form.Field required>
+            <label>Confirm Password</label>
+            <input
+              placeholder="********"
+              type="password"
+              name="confirmpassword"
+            />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group widths={3}>
+          <Form.Field required>
+            <label>Company</label>
+            <input placeholder="Sky" name="company" />
+          </Form.Field>
+          <Form.Field required>
+            <label>Company Logo</label>
+            <input name="companylogo" />
+          </Form.Field>
+          <Form.Field required>
+            <label>Company Colour</label>
+            <input name="companycolour" />
+          </Form.Field>
+        </Form.Group>
+        <Form.Checkbox required label="I agree to the Terms and Conditions" />
+        <Button type="submit">Sign Up</Button>
+        {authenticated === mutations.USERNAME_RESERVED ? (
+          <Message
+            error
+            header="Username taken"
+            content="Please try a different username"
           />
-        </label>
-        <label>
-          <span>Confirm Password</span>
-          <input
-            type="password"
-            name="confirmpassword"
-            className="form-control mt-2"
-          />
-        </label>
-        <label>
-          <span>Company</span>
-          <input type="text" name="company" className="form-control mt-2" />
-        </label>
-        <label>
-          <span>Company Logo</span>
-          <input type="text" name="companylogo" className="form-control mt-2" />
-        </label>
-        <label>
-          <span>Company Colour</span>
-          <input
-            type="text"
-            name="companycolour"
-            className="form-control mt-2"
-          />
-        </label>
-
-        {authenticated == mutations.USERNAME_RESERVED ? (
-          <p>Username taken</p>
         ) : null}
-        <button type="submit" className="form-control mt-2 btn btn-primary">
-          Sign Up
-        </button>
-      </form>
+      </Form>
     </div>
   );
 };
