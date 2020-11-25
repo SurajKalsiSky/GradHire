@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
-import { Link } from "react-router-dom";
-import { Button, Input } from "semantic-ui-react";
+import { Button, Dropdown } from "semantic-ui-react";
 import { Title } from "./title";
 
 const QuestionPage = ({
@@ -15,42 +14,39 @@ const QuestionPage = ({
   test,
 }) => {
   const [testState, setTestState] = useState(1);
-  const handleTestChange = (e) => setTestState(e.target.value);
+  const handleTestChange = (e, { value }) => setTestState(value);
   if (testDetails) {
+    const options = [
+      { key: 1, text: testDetails.answer1, value: 1 },
+      { key: 2, text: testDetails.answer2, value: 2 },
+    ];
     return (
       <div>
         <Title title={`Question ${id + 1}`} />
-        <h3>{testDetails.question}?</h3>
-        <h3>Answer 1: {testDetails.answer1}</h3>
-        <h3>Answer 2: {testDetails.answer2}</h3>
-
-        <Input
-          type="number"
-          name={"answer"}
-          id={1}
-          value={testState.answer}
-          onChange={handleTestChange}
-          min="1"
-          max="2"
-        />
-
-        <Button
-          type="submit"
-          onClick={() =>
-            sumbitAnswer(testState, testDetails, nextTest, nextId, user, test)
-          }
-        >
-          Next
-        </Button>
-        {/* {nextTest ? (
-          <Link to={`/question/${id + 1}`}>
-            <Button size="small">Next</Button>
-          </Link>
-        ) : (
-          <Link to="/finished">
-            <Button size="small">Finish</Button>
-          </Link>
-        )} */}
+        <h1>{testDetails.question}?</h1>
+        <h4>1) {testDetails.answer1}</h4>
+        <h4>2) {testDetails.answer2}</h4>
+        <span>
+          <h5>Please select your answer: </h5>
+          <Dropdown
+            onChange={handleTestChange}
+            clearable
+            options={options}
+            selection
+            compact
+            closeOnEscape
+          />
+        </span>
+        <div className="extraPadding">
+          <Button
+            type="submit"
+            onClick={() =>
+              sumbitAnswer(testState, testDetails, nextTest, nextId, user, test)
+            }
+          >
+            Next
+          </Button>
+        </div>
       </div>
     );
   } else {

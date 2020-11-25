@@ -6,7 +6,7 @@ import { Title } from "./title";
 const Finished = ({ submitAnswers, score, user, test }) => {
   useEffect(() => submitAnswers(score, user, test), []);
   return (
-    <div>
+    <div class="center-text">
       <Title title={"Congratulations!"} />
       <h1>You have completed the {test.name}!</h1>
       <h3>

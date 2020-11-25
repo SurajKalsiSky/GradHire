@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as mutations from "../store/mutations";
 import { Link } from "react-router-dom";
-import { Form, Button, Input } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 import { Title } from "./title";
 
 const CreateTestPage = ({ userId, submit, createNewTest }) => {
@@ -27,8 +27,10 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
   };
   const handleTestChange = (e) => {
     const updatedTest = [...testState];
-    updatedTest[e.target.dataset.idx][e.target.className] = e.target.value;
-    setTestState(updatedTest);
+    if (updatedTest && updatedTest[e.target.dataset.idx]) {
+      updatedTest[e.target.dataset.idx][e.target.className] = e.target.value;
+      setTestState(updatedTest);
+    }
   };
   return (
     <div>
@@ -40,7 +42,7 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
       <Form onSubmit={submit}>
         <Form.Field>
           <label>Name of test</label>
-          <Input
+          <input
             name="name"
             id="name"
             value={ownerState.name}
@@ -58,7 +60,7 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
             <div key={`question-block-${idx}`}>
               <Form.Field>
                 <label htmlFor={questionId}>{`Question #${idx + 1}`}</label>
-                <Input
+                <input
                   name={questionId}
                   data-idx={idx}
                   id={questionId}
@@ -69,7 +71,7 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
               </Form.Field>
               <Form.Field>
                 <label htmlFor={answer1Id}>Answer 1</label>
-                <Input
+                <input
                   name={answer1Id}
                   data-idx={idx}
                   id={answer1Id}
@@ -80,7 +82,7 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
               </Form.Field>
               <Form.Field>
                 <label htmlFor={answer2Id}>Answer 2</label>
-                <Input
+                <input
                   type="text"
                   name={answer2Id}
                   data-idx={idx}
@@ -93,7 +95,7 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
               <Form.Field>
                 <label>
                   <span>Correct answer</span>
-                  <Input
+                  <input
                     type="number"
                     name={correctanswerId}
                     data-idx={idx}
@@ -110,9 +112,9 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
           );
         })}
 
-        <Form.Field>
+        <Form.Field className="extraPadding">
           <label>Test pass mark</label>
-          <Input
+          <input
             type="number"
             name="passmark"
             id="passmark"
