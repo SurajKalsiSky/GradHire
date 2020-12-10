@@ -17,8 +17,8 @@ const QuestionPage = ({
   const handleTestChange = (e, { value }) => setTestState(value);
   if (testDetails) {
     const options = [
-      { key: 1, text: testDetails.answer1, value: 1 },
-      { key: 2, text: testDetails.answer2, value: 2 },
+      { key: 1, text: 1, value: 1 },
+      { key: 2, text: 2, value: 2 },
     ];
     return (
       <div>

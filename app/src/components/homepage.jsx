@@ -61,7 +61,7 @@ const HomePage = () => (
             <Menu.Item className="header">£999/year</Menu.Item>
             <Menu.Item>
               <List relaxed>
-                <List.Item icon="check" content="50 Candidates" />
+                <List.Item icon="check" content="200 Candidates" />
                 <List.Item icon="check" content="Maths" />
                 <List.Item icon="check" content="Multiple Choice" />
                 <List.Item icon="x" content="Non-vebal" />
@@ -80,7 +80,7 @@ const HomePage = () => (
             <Menu.Item className="header">£1499/year</Menu.Item>
             <Menu.Item>
               <List relaxed>
-                <List.Item icon="check" content="50 Candidates" />
+                <List.Item icon="check" content="500 Candidates" />
                 <List.Item icon="check" content="Maths" />
                 <List.Item icon="check" content="Multiple Choice" />
                 <List.Item icon="check" content="Non-vebal" />

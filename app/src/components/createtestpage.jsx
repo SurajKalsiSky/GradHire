@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
 import { Title } from "./title";
 
-const CreateTestPage = ({ userId, submit, createNewTest }) => {
+const CreateTestPage = ({ userId, logo, colour, submit, createNewTest }) => {
   const [ownerState, setOwnerState] = useState({
     name: "",
     passmark: 1,
@@ -130,7 +130,9 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
         <Button
           color="red"
           type="submit"
-          onClick={() => createNewTest(testState, ownerState, userId)}
+          onClick={() =>
+            createNewTest(testState, ownerState, userId, logo, colour)
+          }
         >
           Save
         </Button>
@@ -139,8 +141,12 @@ const CreateTestPage = ({ userId, submit, createNewTest }) => {
   );
 };
 
-function mapStateToProps(state) {
-  return { userId: state.user.id };
+function mapStateToProps({ user }) {
+  return {
+    userId: user.id,
+    logo: user.companylogo,
+    colour: user.companycolour,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -148,10 +154,12 @@ function mapDispatchToProps(dispatch) {
     submit(e) {
       e.preventDefault();
     },
-    createNewTest(testState, ownerState, userId) {
+    createNewTest(testState, ownerState, userId, logo, colour) {
       dispatch(
         mutations.requestTestCreation({
           userId,
+          logo,
+          colour,
           testState,
           ownerState,
         })

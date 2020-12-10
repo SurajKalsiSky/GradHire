@@ -5,7 +5,7 @@ import axios from "axios";
 import * as mutations from "./mutations";
 import { history } from "./history";
 
-const url = "http://localhost:7777";
+const url = "http://192.168.0.7:7777";
 
 export function* testCreationSaga() {
   while (true) {
@@ -43,10 +43,6 @@ export function* testModificationSaga() {
 export function* testSubmitAnswerSaga() {
   while (true) {
     const answerDetails = yield take("submitAnswer");
-    console.log(
-      "function*testSubmitAnswerSaga -> answerDetails",
-      answerDetails
-    );
     if (answerDetails.nextTest) {
       history.push(`/question/${answerDetails.nextId}`);
     } else {

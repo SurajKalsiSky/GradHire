@@ -86,6 +86,10 @@ export const authenticationRoute = (app) => {
       id: userId,
       name: username,
       firstname,
+      lastname,
+      company,
+      companylogo,
+      companycolour,
       candidate,
     });
 

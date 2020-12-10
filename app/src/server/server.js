@@ -38,7 +38,13 @@ export const updateTest = async (test) => {
   }
 
   if (candidates) {
-    await collection.updateOne({ id }, { $set: { candidates } });
+    let wholeTest = await collection.findOne({ id });
+    if (wholeTest.candidates) {
+      const newArray = [...wholeTest.candidates, ...candidates];
+      await collection.updateOne({ id }, { $set: { candidates: newArray } });
+    } else {
+      await collection.updateOne({ id }, { $set: { candidates } });
+    }
   }
 };
 

@@ -8,11 +8,11 @@ import { Title } from "./title";
 const AccessCodePage = ({ id, getTest, correctUAC, validTest, test }) => {
   useEffect(() => getTest(id), []);
   return (
-    <div>
+    <div className="center-text">
       <Title title={test.name} />
       {validTest ? (
         <div>
-          <h1>Please enter the unique access code:</h1>
+          <h1>Please enter the unique access code</h1>
           <form>
             <Input type="text" placeholder="xxxxx" name="UAC" />
             {correctUAC ? <p>Login incorrect!</p> : null}
