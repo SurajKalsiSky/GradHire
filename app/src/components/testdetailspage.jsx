@@ -18,7 +18,7 @@ const TestDetailsPage = ({ id, test, requestGenerateUAC, setTestName }) => (
     <div>
       <p>
         <b>Test URL: </b>
-        {`http://localhost:3000/candidate/test/${test.id}`}
+        {`http://192.168.0.7:3000/candidate/test/${test.id}`}
       </p>
       Click button to generate test access code:
       <Button compact onClick={() => requestGenerateUAC(id)}>
